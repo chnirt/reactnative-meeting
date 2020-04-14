@@ -14,20 +14,22 @@ import SignUpScreen from '../screens/SignUpScreen';
 
 import {SPLASH, SIGNIN, SIGNUP} from '../constants';
 
-const forFade = ({current, next}) => {
-  const opacity = Animated.add(
-    current.progress,
-    next ? next.progress : 0,
-  ).interpolate({
-    inputRange: [0, 1, 2],
-    outputRange: [0, 1, 0],
+const fade = (props) => {
+  const {position, scene} = props;
+
+  const index = scene.index;
+
+  const translateX = 0;
+  const translateY = 0;
+
+  const opacity = position.interpolate({
+    inputRange: [index - 0.7, index, index + 0.7],
+    outputRange: [0.3, 1, 0.3],
   });
 
   return {
-    leftButtonStyle: {opacity},
-    rightButtonStyle: {opacity},
-    titleStyle: {opacity},
-    backgroundStyle: {opacity},
+    opacity,
+    transform: [{translateX}, {translateY}],
   };
 };
 
@@ -79,7 +81,7 @@ export default function AppStackScreen() {
       //       : undefined,
       //   ...TransitionPresets.ModalPresentationIOS,
       // })}
-      mode="modal"
+      // mode="modal"
       headerMode="none">
       {token ? (
         <>
@@ -92,12 +94,13 @@ export default function AppStackScreen() {
           <AppStack.Screen
             name={SIGNIN}
             component={SignInScreen}
-            // options={{
-            //   transitionSpec: {
-            //     open: TransitionSpecs.TransitionIOSSpec,
-            //     close: TransitionSpecs.TransitionIOSSpec,
-            //   },
-            // }}
+            options={{
+              transitionConfig: () => ({
+                screenInterpolator: (props) => {
+                  return fade(props);
+                },
+              }),
+            }}
           />
           <AppStack.Screen
             name={SIGNUP}

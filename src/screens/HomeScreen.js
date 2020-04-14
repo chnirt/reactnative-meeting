@@ -6,6 +6,7 @@ import {
   useWindowDimensions,
   useColorScheme,
 } from 'react-native';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 import {CTX} from '../context';
 
@@ -15,11 +16,13 @@ export default function HomeScreen() {
   const colorScheme = useColorScheme();
 
   return (
-    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <Text>Home</Text>
-      <Text>{`Window Dimensions: height - ${window.height}, width - ${window.width}`}</Text>
-      <Text>useColorScheme(): {colorScheme}</Text>
-      <Button title="Log out" onPress={_logout} />
-    </View>
+    <SafeAreaView>
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <Text>Home</Text>
+        <Text>{`Window Dimensions: height - ${window.height}, width - ${window.width}`}</Text>
+        <Text>useColorScheme(): {colorScheme}</Text>
+        <Button title="Log out" onPress={_logout} />
+      </View>
+    </SafeAreaView>
   );
 }

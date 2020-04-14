@@ -1,11 +1,60 @@
 import React, {useContext} from 'react';
 import {useNavigation} from '@react-navigation/native';
-import {View, Button} from 'react-native';
+import {
+  View,
+  Button,
+  StyleSheet,
+  Image,
+  Text,
+  TouchableOpacity,
+} from 'react-native';
 import {TextInput} from 'react-native-gesture-handler';
 import {useMutation} from '@apollo/react-hooks';
+import {useSafeArea} from 'react-native-safe-area-context';
+import Icon from 'react-native-vector-icons/dist/Feather';
 
 import {CTX} from '../context';
 import {SIGN_IN} from '../graphql/mutations';
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff1f0',
+  },
+  circle: {
+    width: 550,
+    height: 550,
+    borderRadius: 500 / 2,
+    backgroundColor: '#fff',
+    position: 'absolute',
+    left: -140,
+    top: -20,
+  },
+  header: {
+    fontWeight: '800',
+    fontSize: 16,
+    color: '#514e5a',
+    marginTop: 16,
+  },
+  input: {
+    marginTop: 16,
+    height: 50,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: '#bab7c3',
+    borderRadius: 30,
+    paddingHorizontal: 16,
+    color: '#514e5a',
+    fontWeight: '600',
+  },
+  continue: {
+    width: 70,
+    height: 70,
+    borderRadius: 70 / 2,
+    backgroundColor: '#dc3e40',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
 
 export default function SignInScreen() {
   const [username, setUsername] = React.useState('admin');
@@ -13,6 +62,8 @@ export default function SignInScreen() {
   const {_authenticate} = useContext(CTX);
   const navigation = useNavigation();
   const [signIn] = useMutation(SIGN_IN);
+
+  const insets = useSafeArea();
 
   async function onSignIn(input) {
     signIn({
@@ -32,20 +83,50 @@ export default function SignInScreen() {
   }
 
   return (
-    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <TextInput
-        placeholder="Username"
-        value={username}
-        onChangeText={setUsername}
-      />
-      <TextInput
-        placeholder="Password"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-      />
-      <Button title="Sign in" onPress={() => onSignIn({username, password})} />
-      <Button title="Sign up" onPress={navigateSignUp} />
+    <View
+      style={{
+        ...styles.container,
+        paddingTop: insets.top,
+        paddingBottom: insets.bottom,
+      }}>
+      <View style={styles.circle} />
+      <View style={{marginTop: 64}}>
+        <Image
+          source={require('../assets/icon.png')}
+          style={{
+            width: 100,
+            height: 100,
+            alignSelf: 'center',
+            borderRadius: 10,
+          }}
+        />
+      </View>
+      <View style={{marginHorizontal: 32}}>
+        <Text style={styles.header}>Username</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Username"
+          value={username}
+          onChangeText={setUsername}
+        />
+        <Text style={styles.header}>Password</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Password"
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry
+        />
+        <View style={{alignItems: 'flex-end', marginTop: 64}}>
+          <TouchableOpacity
+            style={styles.continue}
+            onPress={() => onSignIn({username, password})}>
+            <Icon name="arrow-right" size={30} color="#fff" />
+          </TouchableOpacity>
+        </View>
+
+        <Button title="Sign up" onPress={navigateSignUp} />
+      </View>
     </View>
   );
 }

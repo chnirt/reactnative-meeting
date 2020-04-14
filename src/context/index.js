@@ -27,7 +27,6 @@ export default function Context({children}) {
   };
 
   const _authenticate = async (token) => {
-    console.log(token);
     await AsyncStorage.setItem('userToken', token);
     setToken(token);
   };
