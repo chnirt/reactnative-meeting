@@ -22,9 +22,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#f9f0ff',
   },
   circle: {
-    width: 550,
-    height: 550,
-    borderRadius: 500 / 2,
+    width: 580,
+    height: 580,
+    borderRadius: 580 / 2,
     backgroundColor: '#fff',
     position: 'absolute',
     left: -140,
@@ -102,10 +102,9 @@ export default function SignInScreen() {
           <Image
             source={require('../assets/logo2.png')}
             style={{
-              width: 50,
+              width: 60,
               height: 50,
               alignSelf: 'center',
-              borderRadius: 10,
             }}
           />
         </View>
