@@ -58,7 +58,7 @@ export default function AppStackScreen() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 1000);
+    }, 700);
     return () => {
       clearTimeout(timer);
     };

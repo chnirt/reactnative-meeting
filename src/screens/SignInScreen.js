@@ -19,7 +19,7 @@ import {SIGN_IN} from '../graphql/mutations';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff1f0',
+    backgroundColor: '#f9f0ff',
   },
   circle: {
     width: 550,
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     width: 70,
     height: 70,
     borderRadius: 70 / 2,
-    backgroundColor: '#dc3e40',
+    backgroundColor: '#7f23d9',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -90,16 +90,25 @@ export default function SignInScreen() {
         paddingBottom: insets.bottom,
       }}>
       <View style={styles.circle} />
-      <View style={{marginTop: 64}}>
-        <Image
-          source={require('../assets/icon.png')}
+      <View style={{marginTop: 64, alignItems: 'center'}}>
+        <View
           style={{
             width: 100,
             height: 100,
-            alignSelf: 'center',
-            borderRadius: 10,
-          }}
-        />
+            backgroundColor: '#7f23d9',
+            justifyContent: 'center',
+            borderRadius: 15,
+          }}>
+          <Image
+            source={require('../assets/logo2.png')}
+            style={{
+              width: 50,
+              height: 50,
+              alignSelf: 'center',
+              borderRadius: 10,
+            }}
+          />
+        </View>
       </View>
       <View style={{marginHorizontal: 32}}>
         <Text style={styles.header}>Username</Text>
@@ -117,7 +126,7 @@ export default function SignInScreen() {
           onChangeText={setPassword}
           secureTextEntry
         />
-        <View style={{alignItems: 'flex-end', marginTop: 64}}>
+        <View style={{alignItems: 'flex-end', marginTop: 36}}>
           <TouchableOpacity
             style={styles.continue}
             onPress={() => onSignIn({username, password})}>
