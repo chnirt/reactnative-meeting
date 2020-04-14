@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react';
-import {StyleSheet, View, Text, Animated, MaskedViewIOS} from 'react-native';
+import {StyleSheet, View, Animated} from 'react-native';
 import MaskedView from '@react-native-community/masked-view';
+
+import {PRIMARY} from '../themes';
 
 const styles = StyleSheet.create({
   centered: {
@@ -24,7 +26,7 @@ export default function SplashScreen() {
   });
 
   const colorLayer = (
-    <View style={[StyleSheet.absoluteFill, {backgroundColor: '#7f23d9'}]} />
+    <View style={[StyleSheet.absoluteFill, {backgroundColor: PRIMARY}]} />
   );
 
   const whiteLayer = (
@@ -66,7 +68,7 @@ export default function SplashScreen() {
         }>
         {whiteLayer}
         <Animated.View style={[opacity, styles.centered]}>
-          <Text>Splash</Text>
+          {/* <Text>Splash</Text> */}
         </Animated.View>
       </MaskedView>
     </View>

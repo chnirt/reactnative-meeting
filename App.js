@@ -12,7 +12,7 @@ import {SafeAreaProvider} from 'react-native-safe-area-context';
 
 import Context from './src/context';
 import Apollo from './src/graphql/apollo';
-import AppNavigator from './src/navigation/AppStackNavigator';
+import AppStack from './src/navigation/AppStack';
 
 export default function App() {
   return (
@@ -20,7 +20,7 @@ export default function App() {
       <Apollo>
         <SafeAreaProvider>
           <NavigationContainer>
-            <AppNavigator />
+            <AppStack />
           </NavigationContainer>
         </SafeAreaProvider>
       </Apollo>

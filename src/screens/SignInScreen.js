@@ -11,15 +11,16 @@ import {
 import {TextInput} from 'react-native-gesture-handler';
 import {useMutation} from '@apollo/react-hooks';
 import {useSafeArea} from 'react-native-safe-area-context';
-import Icon from 'react-native-vector-icons/dist/Feather';
+import Icon from 'react-native-vector-icons/dist/Octicons';
 
 import {CTX} from '../context';
 import {SIGN_IN} from '../graphql/mutations';
+import {PRIMARY, SECONDARY} from '../themes';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f9f0ff',
+    backgroundColor: SECONDARY,
   },
   circle: {
     width: 580,
@@ -50,7 +51,7 @@ const styles = StyleSheet.create({
     width: 70,
     height: 70,
     borderRadius: 70 / 2,
-    backgroundColor: '#7f23d9',
+    backgroundColor: PRIMARY,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -95,7 +96,7 @@ export default function SignInScreen() {
           style={{
             width: 100,
             height: 100,
-            backgroundColor: '#7f23d9',
+            backgroundColor: PRIMARY,
             justifyContent: 'center',
             borderRadius: 15,
           }}>
@@ -129,7 +130,7 @@ export default function SignInScreen() {
           <TouchableOpacity
             style={styles.continue}
             onPress={() => onSignIn({username, password})}>
-            <Icon name="arrow-right" size={30} color="#fff" />
+            <Icon name="chevron-right" size={30} color="#fff" />
           </TouchableOpacity>
         </View>
 
