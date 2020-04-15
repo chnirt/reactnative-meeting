@@ -5,7 +5,7 @@ const variable = {
   SIGNUP: 'SignUp',
   HOME: 'Home',
   CHAT: 'Chat',
-  CREATE: 'Create',
+  ADD: 'Add',
   NOTIFICATION: 'Notification',
   PROFILE: 'Profile',
 };
