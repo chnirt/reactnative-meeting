@@ -4,3 +4,5 @@ https://oblador.github.io/react-native-vector-icons/
 
 Get color from image:
 https://html-color-codes.info/colors-from-image/
+
+Svg -> Svgr : https://react-svgr.com/playground/?native=true

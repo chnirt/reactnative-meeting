@@ -60,7 +60,7 @@ export default function SplashScreen() {
 				maskElement={
 					<View style={styles.centered}>
 						<Animated.Image
-							source={require('../assets/logo2.png')}
+							source={require('../assets/logo.png')}
 							style={[{width: 1000}, imageScale]}
 							resizeMode="contain"
 						/>

@@ -7,14 +7,12 @@ import {
 	TouchableOpacity,
 } from 'react-native'
 import {useNavigation} from '@react-navigation/native'
-import {useMutation} from '@apollo/react-hooks'
 import Icon from 'react-native-vector-icons/dist/Feather'
 
-import {SIGN_UP} from '../graphql/mutations'
 import SafeArea from '../components/SafeArea'
 import {PRIMARY, SECONDARY} from '../themes'
-import InputTextField from '../components/InputTextField'
 import {SIGNIN} from '../constants'
+import InputTextField from '../components/InputTextField'
 
 const styles = StyleSheet.create({
 	container: {
@@ -22,13 +20,13 @@ const styles = StyleSheet.create({
 		backgroundColor: SECONDARY,
 	},
 	circle: {
-		width: 710,
-		height: 710,
-		borderRadius: 710 / 2,
+		width: 510,
+		height: 510,
+		borderRadius: 510 / 2,
 		backgroundColor: '#fff',
 		position: 'absolute',
-		left: -140,
-		top: -20,
+		left: -50,
+		top: -200,
 	},
 	back: {
 		position: 'absolute',
@@ -57,13 +55,8 @@ const styles = StyleSheet.create({
 	},
 })
 
-export default function SignUpScreen() {
+export default function Forgot() {
 	const [email, setEmail] = React.useState('')
-	const [username, setUsername] = React.useState('')
-	const [password, setPassword] = React.useState('')
-	const [fullName, setFullName] = React.useState('')
-	const [phoneNumber, setPhoneNumber] = React.useState('')
-	// const [signUp] = useMutation(SIGN_UP)
 
 	const navigation = useNavigation()
 
@@ -71,19 +64,7 @@ export default function SignUpScreen() {
 		navigation?.navigate(SIGNIN)
 	}
 
-	function onSignUp(input) {
-		// signUp({
-		// 	variables: {
-		// 		input,
-		// 	},
-		// })
-		// 	.then(({data}) => {
-		// 		// console.log(data?.signup);
-		// 		if (data?.signup) {
-		// 			navigateSignIn()
-		// 		}
-		// 	})
-		// 	.catch((error) => console.log(error))
+	function onSend(input) {
 		navigateSignIn()
 	}
 
@@ -103,31 +84,6 @@ export default function SignUpScreen() {
 						value={email}
 						onChangeText={setEmail}
 					/>
-					<InputTextField
-						title="Username"
-						placeholderText="Enter your username"
-						value={username}
-						onChangeText={setUsername}
-					/>
-					<InputTextField
-						title="Password"
-						placeholderText="Enter your password"
-						value={password}
-						onChangeText={setPassword}
-						isSecure
-					/>
-					<InputTextField
-						title="FullName"
-						placeholderText="Enter your fullName"
-						value={fullName}
-						onChangeText={setFullName}
-					/>
-					<InputTextField
-						title="phoneNumber"
-						placeholderText="Enter your phoneNumber"
-						value={phoneNumber}
-						onChangeText={setPhoneNumber}
-					/>
 					<View
 						style={{
 							alignItems: 'flex-end',
@@ -135,10 +91,8 @@ export default function SignUpScreen() {
 						}}>
 						<TouchableOpacity
 							style={[styles.button, styles.continue]}
-							onPress={() =>
-								onSignUp({email, username, password, fullName, phoneNumber})
-							}>
-							<Icon name="user-plus" size={30} color="#fff" />
+							onPress={() => onSend({email})}>
+							<Icon name="send" size={30} color="#fff" />
 						</TouchableOpacity>
 					</View>
 				</View>
