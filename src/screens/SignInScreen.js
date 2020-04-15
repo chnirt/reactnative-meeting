@@ -79,17 +79,17 @@ const styles = StyleSheet.create({
 		backgroundColor: '#fff',
 	},
 	google: {
-		top: 75,
+		top: 70,
 	},
 	facebook: {
-		top: 65,
+		top: 60,
 	},
 })
 
 export default function SignInScreen() {
-	const [username, setUsername] = React.useState('')
-	const [password, setPassword] = React.useState('')
-	const {_authenticate} = useContext(CTX)
+	const [username, setUsername] = React.useState('admin')
+	const [password, setPassword] = React.useState('0')
+	const {_authenticate1} = useContext(CTX)
 	const navigation = useNavigation()
 	// const [signIn] = useMutation(SIGN_IN)
 
@@ -105,7 +105,7 @@ export default function SignInScreen() {
 		// 		_authenticate(data?.signin?.token)
 		// 	})
 		// 	.catch((error) => console.log(console.log(error)))
-		_authenticate('data?.signin?.token')
+		_authenticate1(input)
 	}
 
 	function navigateSignUp() {
@@ -177,7 +177,7 @@ export default function SignInScreen() {
 							flexDirection: 'row',
 							justifyContent: 'space-between',
 							alignItems: 'flex-end',
-							marginTop: 15,
+							marginTop: 10,
 						}}>
 						<TouchableOpacity
 							style={[styles.button, styles.social, styles.facebook]}
