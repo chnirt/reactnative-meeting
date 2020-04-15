@@ -2,7 +2,7 @@ import React, {useRef} from 'react'
 import {View, StyleSheet, Animated, TouchableHighlight} from 'react-native'
 
 import Icon from 'react-native-vector-icons/dist/Feather'
-import {PRIMARY, SHADOW} from '../themes'
+import {PRIMARY, SHADOW} from '../../themes'
 
 const styles = StyleSheet.create({
 	button: {

@@ -7,7 +7,7 @@ import ChatScreen from '../screens/ChatScreen'
 import NotificationScreen from '../screens/NotificationScreen'
 import ProfileScreen from '../screens/ProfileScreen'
 
-import AddButton from '../components/AddButton'
+import AddButton from '../components/Button/AddButton'
 import {HOME, CHAT, ADD, NOTIFICATION, PROFILE} from '../constants'
 import {PRIMARY} from '../themes'
 // import CustomBottomBar from '../components/CustomBottomBar'
