@@ -1,11 +1,11 @@
-import gql from 'graphql-tag';
+import gql from 'graphql-tag'
 
 const GET_GREETING1 = gql`
-  query getGreeting($language: String!) {
-    greeting(language: $language) {
-      message
-    }
-  }
-`;
+	query getGreeting($language: String!) {
+		greeting(language: $language) {
+			message
+		}
+	}
+`
 
-export {GET_GREETING1};
+export {GET_GREETING1}

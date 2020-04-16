@@ -52,16 +52,6 @@ const styles = StyleSheet.create({
 		color: '#514e5a',
 		marginTop: 16,
 	},
-	input: {
-		marginTop: 16,
-		height: 50,
-		borderWidth: StyleSheet.hairlineWidth,
-		borderColor: '#bab7c3',
-		borderRadius: 30,
-		paddingHorizontal: 16,
-		color: '#514e5a',
-		fontWeight: '600',
-	},
 	button: {
 		width: 70,
 		height: 70,

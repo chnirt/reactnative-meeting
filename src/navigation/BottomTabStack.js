@@ -3,13 +3,14 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 import Icon from 'react-native-vector-icons/dist/Feather'
 
 import HomeScreen from '../screens/HomeScreen'
-import ChatScreen from '../screens/ChatScreen'
+import MessageStackScreen from '../navigation/MessageStack'
 import NotificationScreen from '../screens/NotificationScreen'
 import ProfileScreen from '../screens/ProfileScreen'
 
 import AddButton from '../components/Button/AddButton'
-import {HOME, CHAT, ADD, NOTIFICATION, PROFILE} from '../constants'
+import {HOME, MESSAGE_STACK, ADD, NOTIFICATION, PROFILE} from '../constants'
 import {PRIMARY} from '../themes'
+import {Platform} from 'react-native'
 // import CustomBottomBar from '../components/CustomBottomBar'
 
 const config = {
@@ -33,6 +34,18 @@ export default function BottomTabScreen() {
 				showLabel: false,
 				inactiveTintColor: '#cdccce',
 				activeTintColor: PRIMARY,
+				style: {
+					// backgroundColor: '#133740',
+					height: Platform.OS === 'ios' ? 94 : 60,
+					borderTopWidth: 0,
+				},
+				labelStyle: {
+					//color: '#3D908E',
+					fontFamily: 'Beaufort',
+					fontSize: 12,
+					lineHeight: 13,
+					textAlign: 'center',
+				},
 			}}
 			// tabBar={(props) => <CustomBottomBar {...props} />}
 		>
@@ -40,6 +53,7 @@ export default function BottomTabScreen() {
 				name={HOME}
 				component={HomeScreen}
 				options={{
+					// header: <Text>Hello</Text>,
 					tabBarIcon: ({color, size}) => (
 						<Icon name="home" color={color} size={size} />
 					),
@@ -50,8 +64,8 @@ export default function BottomTabScreen() {
 				}}
 			/>
 			<Tab.Screen
-				name={CHAT}
-				component={ChatScreen}
+				name={MESSAGE_STACK}
+				component={MessageStackScreen}
 				options={{
 					tabBarIcon: ({color, size}) => (
 						<Icon name="message-circle" color={color} size={size} />

@@ -9,13 +9,19 @@ export default function Context({children}) {
 	const [users, setUsers] = useState([
 		{
 			_id: Math.floor(Math.random() * 10000) + 1,
+			avatar: 'https://placeimg.com/140/140/any',
+			name: 'admin',
 			username: 'admin',
 			password: '0',
 		},
 	])
 	const [token, setToken] = useState(null)
 	const [skip, setSkip] = useState(false)
-	const [user, setUser] = useState({})
+	const [user, setUser] = useState({
+		_id: Math.floor(Math.random() * 10000) + 1,
+		avatar: 'https://placeimg.com/140/140/any',
+		name: 'admin',
+	})
 
 	useEffect(() => {
 		_bootstrapAsync()
@@ -39,11 +45,11 @@ export default function Context({children}) {
 	}
 
 	const _authenticate1 = async ({username, password}) => {
-		let user1 = users.filter(
+		let {username1, password1, ...rest} = users.filter(
 			(item) => item.username === username && item.password === password,
 		)
 
-		setUser(...user1)
+		setUser(rest)
 
 		let token1 = username + password
 

@@ -56,7 +56,12 @@ export default function AddButton({color, size}) {
 	}
 
 	return (
-		<View style={{position: 'absolute', alignItems: 'center'}}>
+		<View
+			style={{
+				backgroundColor: 'transparents',
+				position: 'absolute',
+				alignItems: 'center',
+			}}>
 			<Animated.View style={[styles.button, scaleStyle]}>
 				<TouchableHighlight onPress={onPress} underlayColor={PRIMARY}>
 					<Animated.View style={rotateStyle}>

@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {StyleSheet, View, Text, Dimensions} from 'react-native'
+import {StyleSheet, View, Text, Switch, Dimensions} from 'react-native'
 import {TextInput} from 'react-native-gesture-handler'
 import Icon from 'react-native-vector-icons/dist/Feather'
 
