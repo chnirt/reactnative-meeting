@@ -4,10 +4,10 @@ import {createStackNavigator} from '@react-navigation/stack'
 import {CTX} from '../context'
 
 import SplashScreen from '../screens/SplashScreen'
-import BottomTabScreen from './BottomTabStack'
 import AuthStackScreen from './AuthStack'
+import DrawerStackScreen from './DrawerStack'
 
-import {SPLASH, BOTTOMTAB, AUTH} from '../constants'
+import {SPLASH, DRAWER, AUTH} from '../constants'
 
 const forFade = ({current, closing}) => ({
 	cardStyle: {
@@ -42,7 +42,7 @@ export default function AppStackScreen() {
 			})}
 			headerMode="none">
 			{token ? (
-				<AppStack.Screen name={BOTTOMTAB} component={BottomTabScreen} />
+				<AppStack.Screen name={DRAWER} component={DrawerStackScreen} />
 			) : (
 				<AppStack.Screen name={AUTH} component={AuthStackScreen} />
 			)}

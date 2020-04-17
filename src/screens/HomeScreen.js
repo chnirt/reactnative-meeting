@@ -11,21 +11,24 @@ import {
 
 import SafeArea from '../components/SafeArea'
 import {PRIMARY} from '../themes'
-import {roomsData} from '../data'
 import useDebounce from '../hooks/useDebounce'
 import InputTextField from '../components/InputTextField'
 
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
+		// paddingTop: 0,
 		paddingBottom: 0,
+	},
+	search: {
+		marginBottom: 16,
+		shadowColor: '#000000',
 	},
 	header: {
 		fontWeight: '800',
 		fontSize: 32,
 		color: '#514e5a',
 		marginLeft: 16,
-		marginTop: 16,
 	},
 	meetingContainer: {
 		paddingHorizontal: 16,
@@ -36,7 +39,7 @@ const styles = StyleSheet.create({
 	},
 })
 
-function ListItem({_id, name, createdAt, selected, onSelect}) {
+function ListItem({_id, name, avatar, createdAt, selected, onSelect}) {
 	// const navigation = useNavigation()
 
 	// function navigateChat() {
@@ -78,10 +81,9 @@ function ListItem({_id, name, createdAt, selected, onSelect}) {
 									height: 50,
 									borderRadius: 50 / 2,
 									marginVertical: 50 / 8,
-
 									marginRight: 50 / 8,
 								}}
-								source={{uri: 'https://placeimg.com/140/140/any'}}
+								source={{uri: avatar}}
 							/>
 							<Image
 								style={{
@@ -91,7 +93,7 @@ function ListItem({_id, name, createdAt, selected, onSelect}) {
 									marginVertical: 50 / 8,
 									marginRight: 50 / 8,
 								}}
-								source={{uri: 'https://placeimg.com/140/140/any'}}
+								source={{uri: avatar}}
 							/>
 							<Image
 								style={{
@@ -101,7 +103,7 @@ function ListItem({_id, name, createdAt, selected, onSelect}) {
 									marginVertical: 50 / 8,
 									marginRight: 50 / 8,
 								}}
-								source={{uri: 'https://placeimg.com/140/140/any'}}
+								source={{uri: avatar}}
 							/>
 						</View>
 					</View>
@@ -122,9 +124,11 @@ function ListItem({_id, name, createdAt, selected, onSelect}) {
 }
 
 export default function HomeScreen() {
-	const [filteredRoomList, setFilteredRoomList] = useState(roomsData)
+	const [filteredRoomList, setFilteredRoomList] = useState([])
 	const [selected, setSelected] = useState(new Map())
+	const [refresh, setRefresh] = useState(false)
 	const [loading, setLoading] = useState(false)
+	const [page, setPage] = useState(1)
 
 	const [query, setQuery] = useState('')
 	const debounceQuery = useDebounce(query, 300)
@@ -140,13 +144,47 @@ export default function HomeScreen() {
 	)
 
 	useEffect(() => {
-		const lowerCaseQuery = debounceQuery.toLowerCase()
-		const newRooms = roomsData.filter((room) =>
-			room.name.toLowerCase().includes(lowerCaseQuery),
-		)
+		fetchRooms(page)
+	}, [page])
 
-		setFilteredRoomList(newRooms)
-	}, [debounceQuery])
+	function fetchRooms(number) {
+		const userApi = `https://5b5cb0546a725000148a67ab.mockapi.io/api/v1/users?page=${number}&limit=8`
+		setLoading(true)
+		fetch(userApi)
+			.then((response) => response.json())
+			.then((json) => {
+				console.log('😂😂😂😂😂😂', json)
+				const newJson = json.map((item) => ({
+					_id: item.id,
+					name: item.name,
+					avatar: item.avatar,
+					createdAt: item.createdAt,
+				}))
+				setLoading(false)
+				setRefresh(false)
+				setFilteredRoomList(
+					number === 1 ? newJson : filteredRoomList.concat(newJson),
+				)
+			})
+	}
+
+	function refreshRooms() {
+		if (page > 1) {
+			setRefresh(true)
+			setPage(1)
+		}
+	}
+
+	function loadRooms() {
+		console.log('LOADMORE-----')
+
+		if (!loading && page < 2) {
+			console.log('LOADMORE')
+
+			setPage(page + 1)
+			console.log(loading, refresh, page)
+		}
+	}
 
 	const renderHeader = () => {
 		return <Text style={styles.header}>Meetings</Text>
@@ -176,9 +214,8 @@ export default function HomeScreen() {
 			<View
 				style={{
 					height: 1,
-					width: '86%',
-					// backgroundColor: '#000',
-					marginLeft: '14%',
+					backgroundColor: '#CED0CE',
+					// marginLeft: '14%',
 				}}
 			/>
 		)
@@ -188,6 +225,7 @@ export default function HomeScreen() {
 		<SafeArea style={styles.container}>
 			<View style={{marginHorizontal: 16}}>
 				<InputTextField
+					style={styles.search}
 					placeholderText="Enter room name"
 					value={query}
 					onChangeText={setQuery}
@@ -209,6 +247,10 @@ export default function HomeScreen() {
 				ItemSeparatorComponent={renderSeparator}
 				ListHeaderComponent={renderHeader}
 				ListFooterComponent={renderFooter}
+				refreshing={refresh}
+				onRefresh={refreshRooms}
+				onEndReachedThreshold={0.5}
+				onEndReached={() => loadRooms()}
 			/>
 		</SafeArea>
 	)

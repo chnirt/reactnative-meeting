@@ -41,4 +41,6 @@ const roomsData = [
 	},
 ]
 
-module.exports = {roomsData}
+const api = 'https://randomuser.me/api/'
+
+module.exports = {roomsData, api}

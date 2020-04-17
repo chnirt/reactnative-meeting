@@ -8,9 +8,17 @@ import NotificationScreen from '../screens/NotificationScreen'
 import ProfileScreen from '../screens/ProfileScreen'
 
 import AddButton from '../components/Button/AddButton'
-import {HOME, MESSAGE_STACK, ADD, NOTIFICATION, PROFILE} from '../constants'
+import {
+	HOME,
+	MESSAGE_STACK,
+	ADD,
+	NOTIFICATION,
+	PROFILE,
+	MODAL,
+} from '../constants'
 import {PRIMARY} from '../themes'
 import {Platform} from 'react-native'
+import {useNavigation} from '@react-navigation/native'
 // import CustomBottomBar from '../components/CustomBottomBar'
 
 const config = {
@@ -28,6 +36,7 @@ const config = {
 const Tab = createBottomTabNavigator()
 
 export default function BottomTabScreen() {
+	const navigation = useNavigation()
 	return (
 		<Tab.Navigator
 			tabBarOptions={{
@@ -77,14 +86,19 @@ export default function BottomTabScreen() {
 				children={() => null}
 				options={{
 					tabBarIcon: ({color, size}) => (
-						<AddButton color={color} size={size} />
+						<AddButton
+							color={color}
+							size={size}
+							onPress={() => navigation?.navigate(MODAL)}
+						/>
 					),
 				}}
 				listeners={{
 					tabPress: (e) => {
 						// Prevent default action
 						e.preventDefault()
-						console.log('xxx')
+						navigation?.navigate(MODAL)
+						// console.log('xxx')
 					},
 				}}
 			/>

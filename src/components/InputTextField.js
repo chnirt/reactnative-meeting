@@ -16,7 +16,13 @@ const styles = StyleSheet.create({
 		fontSize: 16,
 		color: '#514e5a',
 	},
-	passwordContainer: {
+	inputContainer: {
+		flexDirection: 'row',
+		borderWidth: StyleSheet.hairlineWidth,
+		borderColor: '#bab7c3',
+		borderRadius: 30,
+	},
+	inputContainerWithLabel: {
 		marginTop: 16,
 		flexDirection: 'row',
 		borderWidth: StyleSheet.hairlineWidth,
@@ -59,7 +65,10 @@ export default function InputTextField({
 		<View style={{...styles.group, ...style}}>
 			{title && <Text style={styles.inputTitle}>{title}</Text>}
 			<View
-				style={[styles.passwordContainer, white && {backgroundColor: '#fff'}]}>
+				style={[
+					title ? styles.inputContainerWithLabel : styles.inputContainer,
+					white && {backgroundColor: '#fff'},
+				]}>
 				{isSearch && (
 					<Icon
 						style={styles.glassIcon}
@@ -76,7 +85,6 @@ export default function InputTextField({
 					onChangeText={onChangeText}
 					width={SCREEN_WIDTH - 100}
 					height={50}
-					onSubmitEditing={Keyboard.dismiss}
 				/>
 				{isSecure && (
 					<Icon

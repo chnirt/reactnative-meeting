@@ -19,11 +19,11 @@ const styles = StyleSheet.create({
 	},
 })
 
-export default function AddButton({color, size}) {
+export default function AddButton({color, size, onPress}) {
 	const buttonSize = useRef(new Animated.Value(1)).current
 	const mode = useRef(new Animated.Value(0)).current
 
-	const onPress = () => {
+	const onPressAnimated = () => {
 		Animated.sequence([
 			Animated.timing(buttonSize, {
 				toValue: 0.9,
@@ -63,7 +63,12 @@ export default function AddButton({color, size}) {
 				alignItems: 'center',
 			}}>
 			<Animated.View style={[styles.button, scaleStyle]}>
-				<TouchableHighlight onPress={onPress} underlayColor={PRIMARY}>
+				<TouchableHighlight
+					onPress={() => {
+						onPressAnimated()
+						onPress && onPress()
+					}}
+					underlayColor={PRIMARY}>
 					<Animated.View style={rotateStyle}>
 						<Icon name="plus" color="#fff" size={size} />
 					</Animated.View>
