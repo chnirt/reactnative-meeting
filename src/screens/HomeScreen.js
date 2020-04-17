@@ -10,8 +10,7 @@ import {
 } from 'react-native'
 
 import SafeArea from '../components/SafeArea'
-import {PRIMARY} from '../themes'
-import useDebounce from '../hooks/useDebounce'
+import {PRIMARY, SECONDARY} from '../themes'
 import InputTextField from '../components/InputTextField'
 
 const styles = StyleSheet.create({
@@ -19,6 +18,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 		// paddingTop: 0,
 		paddingBottom: 0,
+		backgroundColor: SECONDARY,
 	},
 	search: {
 		marginBottom: 16,
@@ -51,7 +51,7 @@ function ListItem({_id, name, avatar, createdAt, selected, onSelect}) {
 				onSelect(_id)
 				// navigateChat()
 			}}
-			style={[styles.item, {backgroundColor: selected ? PRIMARY : '#fafafa'}]}>
+			style={[styles.item, {backgroundColor: selected ? PRIMARY : '#fff'}]}>
 			<View
 				style={{
 					display: 'flex',
@@ -131,7 +131,6 @@ export default function HomeScreen() {
 	const [page, setPage] = useState(1)
 
 	const [query, setQuery] = useState('')
-	const debounceQuery = useDebounce(query, 300)
 
 	const onSelect = useCallback(
 		(_id) => {
@@ -144,26 +143,26 @@ export default function HomeScreen() {
 	)
 
 	useEffect(() => {
-		fetchRooms(page)
+		setLoading(true)
+		fetchRooms()
 	}, [page])
 
-	function fetchRooms(number) {
-		const userApi = `https://5b5cb0546a725000148a67ab.mockapi.io/api/v1/users?page=${number}&limit=8`
-		setLoading(true)
+	const fetchRooms = () => {
+		const userApi = `https://jsonplaceholder.typicode.com/photos?_limit=10&_page=${page}`
 		fetch(userApi)
 			.then((response) => response.json())
 			.then((json) => {
-				console.log('😂😂😂😂😂😂', json)
+				// console.log('😂😂😂😂😂😂', json)
 				const newJson = json.map((item) => ({
-					_id: item.id,
-					name: item.name,
-					avatar: item.avatar,
-					createdAt: item.createdAt,
+					_id: item.id.toString(),
+					name: item.title,
+					avatar: item.thumbnailUrl,
+					createdAt: item.albumId,
 				}))
 				setLoading(false)
 				setRefresh(false)
 				setFilteredRoomList(
-					number === 1 ? newJson : filteredRoomList.concat(newJson),
+					page === 1 ? newJson : filteredRoomList.concat(newJson),
 				)
 			})
 	}
@@ -176,14 +175,13 @@ export default function HomeScreen() {
 	}
 
 	function loadRooms() {
-		console.log('LOADMORE-----')
-
-		if (!loading && page < 2) {
-			console.log('LOADMORE')
-
+		if (!loading) {
 			setPage(page + 1)
-			console.log(loading, refresh, page)
 		}
+	}
+
+	function onSearch(value) {
+		setQuery(value)
 	}
 
 	const renderHeader = () => {
@@ -198,9 +196,7 @@ export default function HomeScreen() {
 		return (
 			<View
 				style={{
-					paddingVertical: 20,
-					borderTopWidth: 1,
-					borderColor: '#CED0CE',
+					flex: 1,
 					justifyContent: 'center',
 					alignItems: 'center',
 				}}>
@@ -214,8 +210,8 @@ export default function HomeScreen() {
 			<View
 				style={{
 					height: 1,
-					backgroundColor: '#CED0CE',
-					// marginLeft: '14%',
+					backgroundColor: '#000',
+					marginLeft: '80%',
 				}}
 			/>
 		)
@@ -228,7 +224,7 @@ export default function HomeScreen() {
 					style={styles.search}
 					placeholderText="Enter room name"
 					value={query}
-					onChangeText={setQuery}
+					onChangeText={onSearch}
 					isSearch
 					white
 				/>
@@ -249,7 +245,7 @@ export default function HomeScreen() {
 				ListFooterComponent={renderFooter}
 				refreshing={refresh}
 				onRefresh={refreshRooms}
-				onEndReachedThreshold={0.5}
+				onEndReachedThreshold={0}
 				onEndReached={() => loadRooms()}
 			/>
 		</SafeArea>

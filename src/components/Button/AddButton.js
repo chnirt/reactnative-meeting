@@ -1,8 +1,9 @@
-import React, {useRef} from 'react'
+import React, {useRef, useEffect} from 'react'
 import {View, StyleSheet, Animated, TouchableHighlight} from 'react-native'
 
 import Icon from 'react-native-vector-icons/dist/Feather'
 import {PRIMARY, SHADOW} from '../../themes'
+import {useNavigation} from '@react-navigation/native'
 
 const styles = StyleSheet.create({
 	button: {
@@ -22,6 +23,40 @@ const styles = StyleSheet.create({
 export default function AddButton({color, size, onPress}) {
 	const buttonSize = useRef(new Animated.Value(1)).current
 	const mode = useRef(new Animated.Value(0)).current
+
+	const navigation = useNavigation()
+
+	useEffect(() => {
+		const unsubscribeTabPress = navigation.addListener('tabPress', (e) => {
+			// Prevent default behavior
+			e.preventDefault()
+
+			// Do something manually
+			// ...
+			onPress()
+			Animated.timing(buttonSize, {
+				toValue: 1,
+				useNativeDriver: true,
+			}).start()
+			Animated.timing(mode, {
+				toValue: 0,
+				useNativeDriver: false,
+			}).start()
+		})
+
+		const unsubscribeTabLongPress = navigation.addListener(
+			'tabLongPress',
+			(e) => {
+				// Do something
+				onPressAnimated()
+			},
+		)
+
+		return () => {
+			unsubscribeTabPress()
+			unsubscribeTabLongPress()
+		}
+	})
 
 	const onPressAnimated = () => {
 		Animated.sequence([
@@ -63,16 +98,9 @@ export default function AddButton({color, size, onPress}) {
 				alignItems: 'center',
 			}}>
 			<Animated.View style={[styles.button, scaleStyle]}>
-				<TouchableHighlight
-					onPress={() => {
-						onPressAnimated()
-						onPress && onPress()
-					}}
-					underlayColor={PRIMARY}>
-					<Animated.View style={rotateStyle}>
-						<Icon name="plus" color="#fff" size={size} />
-					</Animated.View>
-				</TouchableHighlight>
+				<Animated.View style={rotateStyle}>
+					<Icon name="plus" color="#fff" size={size} />
+				</Animated.View>
 			</Animated.View>
 		</View>
 	)

@@ -44,16 +44,10 @@ export default function BottomTabScreen() {
 				inactiveTintColor: '#cdccce',
 				activeTintColor: PRIMARY,
 				style: {
-					// backgroundColor: '#133740',
-					height: Platform.OS === 'ios' ? 94 : 60,
 					borderTopWidth: 0,
-				},
-				labelStyle: {
-					//color: '#3D908E',
-					fontFamily: 'Beaufort',
-					fontSize: 12,
-					lineHeight: 13,
-					textAlign: 'center',
+					shadowOffset: {height: -3},
+					shadowOpacity: 0.1,
+					shadowColor: '#000',
 				},
 			}}
 			// tabBar={(props) => <CustomBottomBar {...props} />}
@@ -85,20 +79,25 @@ export default function BottomTabScreen() {
 				name={ADD}
 				children={() => null}
 				options={{
-					tabBarIcon: ({color, size}) => (
-						<AddButton
-							color={color}
-							size={size}
-							onPress={() => navigation?.navigate(MODAL)}
-						/>
-					),
+					tabBarIcon: ({color, size}) => {
+						return (
+							<AddButton
+								color={color}
+								size={size}
+								onPress={() => navigation?.navigate(MODAL)}
+							/>
+						)
+					},
 				}}
 				listeners={{
 					tabPress: (e) => {
 						// Prevent default action
 						e.preventDefault()
 						navigation?.navigate(MODAL)
-						// console.log('xxx')
+						// console.log('tabPress')
+					},
+					tabLongPress: () => {
+						// console.log('tabLongPress')
 					},
 				}}
 			/>

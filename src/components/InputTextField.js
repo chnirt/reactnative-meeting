@@ -85,6 +85,7 @@ export default function InputTextField({
 					onChangeText={onChangeText}
 					width={SCREEN_WIDTH - 100}
 					height={50}
+					placeholderTextColor="#d9d9d9"
 				/>
 				{isSecure && (
 					<Icon
