@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useCallback, useEffect} from 'react'
 import {
 	StyleSheet,
 	Text,
@@ -6,11 +6,14 @@ import {
 	TouchableOpacity,
 	View,
 	Image,
+	TextInput,
+	ActivityIndicator,
 } from 'react-native'
-import {useState} from 'react'
 
 import SafeArea from '../components/SafeArea'
-import {PRIMARY, SECONDARY, THIRD, SHADOW} from '../themes'
+import {PRIMARY} from '../themes'
+import {roomsData} from '../data'
+import useDebounce from '../hooks/useDebounce'
 
 const styles = StyleSheet.create({
 	container: {
@@ -32,7 +35,7 @@ const styles = StyleSheet.create({
 	},
 })
 
-function Item({_id, name, createdAt, selected, onSelect}) {
+function ListItem({_id, name, createdAt, selected, onSelect}) {
 	// const navigation = useNavigation()
 
 	// function navigateChat() {
@@ -73,7 +76,9 @@ function Item({_id, name, createdAt, selected, onSelect}) {
 									width: 50,
 									height: 50,
 									borderRadius: 50 / 2,
-									marginHorizontal: 50 / 8,
+									marginVertical: 50 / 8,
+
+									marginRight: 50 / 8,
 								}}
 								source={{uri: 'https://placeimg.com/140/140/any'}}
 							/>
@@ -82,7 +87,8 @@ function Item({_id, name, createdAt, selected, onSelect}) {
 									width: 50,
 									height: 50,
 									borderRadius: 50 / 2,
-									marginHorizontal: 50 / 8,
+									marginVertical: 50 / 8,
+									marginRight: 50 / 8,
 								}}
 								source={{uri: 'https://placeimg.com/140/140/any'}}
 							/>
@@ -91,7 +97,8 @@ function Item({_id, name, createdAt, selected, onSelect}) {
 									width: 50,
 									height: 50,
 									borderRadius: 50 / 2,
-									marginHorizontal: 50 / 8,
+									marginVertical: 50 / 8,
+									marginRight: 50 / 8,
 								}}
 								source={{uri: 'https://placeimg.com/140/140/any'}}
 							/>
@@ -114,51 +121,15 @@ function Item({_id, name, createdAt, selected, onSelect}) {
 }
 
 export default function HomeScreen() {
-	const [users, setUsers] = useState([
-		{
-			_id: '1',
-			name: 'Meeting with S.Williams',
-			createdAt: 'JAN 14 17:30',
-		},
-		{
-			_id: '2',
-			name: 'Developer meeting',
-			createdAt: 'JAN 14 17:30',
-		},
-		{
-			_id: '3',
-			name: 'Developer meeting',
-			createdAt: 'JAN 14 17:30',
-		},
-		{
-			_id: '4',
-			name: 'Meeting with Dr.Strange',
-			createdAt: 'JAN 14 17:30',
-		},
-		{
-			_id: '5',
-			name: 'Meeting with Flash',
-			createdAt: 'JAN 14 17:30',
-		},
-		{
-			_id: '6',
-			name: 'Meeting with WonderWoman',
-			createdAt: 'JAN 14 17:30',
-		},
-		{
-			_id: '7',
-			name: 'Marvel meeting',
-			createdAt: 'JAN 14 17:30',
-		},
-		{
-			_id: '8',
-			name: 'DC meeting',
-			createdAt: 'JAN 14 17:30',
-		},
-	])
-	const [selected, setSelected] = React.useState(new Map())
+	const [rooms, setRooms] = useState([])
+	const [filteredRoomList, setFilteredRoomList] = useState(roomsData)
+	const [selected, setSelected] = useState(new Map())
+	const [loading, setLoading] = useState(false)
 
-	const onSelect = React.useCallback(
+	const [query, setQuery] = useState('')
+	const debounceQuery = useDebounce(query, 300)
+
+	const onSelect = useCallback(
 		(_id) => {
 			const newSelected = new Map(selected)
 			newSelected.set(_id, !selected.get(_id))
@@ -168,20 +139,76 @@ export default function HomeScreen() {
 		[selected],
 	)
 
+	useEffect(() => {
+		console.log(query)
+		const lowerCaseQuery = debounceQuery.toLowerCase()
+		const newRooms = roomsData.filter((room) =>
+			room.name.toLowerCase().includes(lowerCaseQuery),
+		)
+
+		setFilteredRoomList(newRooms)
+	}, [debounceQuery])
+
+	const renderSeparator = () => {
+		return (
+			<View
+				style={{
+					height: 1,
+					width: '86%',
+					backgroundColor: '#000',
+					marginLeft: '14%',
+				}}
+			/>
+		)
+	}
+
+	const renderHeader = () => {
+		return <Text style={styles.header}>Meetings</Text>
+	}
+
+	const renderFooter = () => {
+		if (!loading) {
+			return null
+		}
+
+		return (
+			<View
+				style={{
+					paddingVertical: 20,
+					borderTopWidth: 1,
+					borderColor: '#CED0CE',
+					justifyContent: 'center',
+					alignItems: 'center',
+				}}>
+				<ActivityIndicator animating size="large" />
+			</View>
+		)
+	}
+
 	return (
 		<SafeArea style={styles.container}>
-			<Text style={styles.header}>Meetings</Text>
+			<TextInput
+				style={{
+					backgroundColor: 'red',
+					height: 50,
+				}}
+				value={query}
+				onChangeText={setQuery}
+			/>
 			<FlatList
 				style={styles.meetingContainer}
-				data={users}
+				data={filteredRoomList}
 				renderItem={({item}) => (
-					<Item
+					<ListItem
 						{...item}
 						selected={!!selected.get(item._id)}
 						onSelect={onSelect}
 					/>
 				)}
 				keyExtractor={(item) => item._id}
+				ItemSeparatorComponent={renderSeparator}
+				ListHeaderComponent={renderHeader}
+				ListFooterComponent={renderFooter}
 			/>
 		</SafeArea>
 	)
