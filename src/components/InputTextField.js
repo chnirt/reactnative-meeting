@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {StyleSheet, View, Text, Switch, Dimensions} from 'react-native'
+import {StyleSheet, View, Text, Dimensions, Keyboard} from 'react-native'
 import {TextInput} from 'react-native-gesture-handler'
 import Icon from 'react-native-vector-icons/dist/Feather'
 
@@ -25,16 +25,22 @@ const styles = StyleSheet.create({
 	},
 	input: {
 		height: 50,
-		paddingHorizontal: 16,
+		paddingHorizontal: 40,
 		color: '#514e5a',
 		fontWeight: '600',
-		justifyContent: 'center',
-		alignItems: 'center',
 	},
-	icon: {
+	search: {
+		backgroundColor: '#fff',
+	},
+	eyeIcon: {
 		position: 'absolute',
 		top: 15,
 		right: 16,
+	},
+	glassIcon: {
+		position: 'absolute',
+		top: 15,
+		left: 16,
 	},
 })
 
@@ -45,12 +51,23 @@ export default function InputTextField({
 	isSecure,
 	value,
 	onChangeText,
+	isSearch,
+	white,
 }) {
 	const [hidden, setHidden] = useState(true)
 	return (
 		<View style={{...styles.group, ...style}}>
-			<Text style={styles.inputTitle}>{title}</Text>
-			<View style={styles.passwordContainer}>
+			{title && <Text style={styles.inputTitle}>{title}</Text>}
+			<View
+				style={[styles.passwordContainer, white && {backgroundColor: '#fff'}]}>
+				{isSearch && (
+					<Icon
+						style={styles.glassIcon}
+						name="search"
+						size={20}
+						onPress={() => setHidden(!hidden)}
+					/>
+				)}
 				<TextInput
 					placeholder={placeholderText}
 					secureTextEntry={isSecure && hidden}
@@ -59,10 +76,11 @@ export default function InputTextField({
 					onChangeText={onChangeText}
 					width={SCREEN_WIDTH - 100}
 					height={50}
+					onSubmitEditing={Keyboard.dismiss}
 				/>
 				{isSecure && (
 					<Icon
-						style={styles.icon}
+						style={styles.eyeIcon}
 						name={hidden ? 'eye' : 'eye-off'}
 						size={20}
 						onPress={() => setHidden(!hidden)}

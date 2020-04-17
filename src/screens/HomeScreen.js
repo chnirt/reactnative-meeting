@@ -6,7 +6,6 @@ import {
 	TouchableOpacity,
 	View,
 	Image,
-	TextInput,
 	ActivityIndicator,
 } from 'react-native'
 
@@ -14,6 +13,7 @@ import SafeArea from '../components/SafeArea'
 import {PRIMARY} from '../themes'
 import {roomsData} from '../data'
 import useDebounce from '../hooks/useDebounce'
+import InputTextField from '../components/InputTextField'
 
 const styles = StyleSheet.create({
 	container: {
@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
 		fontSize: 32,
 		color: '#514e5a',
 		marginLeft: 16,
+		marginTop: 16,
 	},
 	meetingContainer: {
 		paddingHorizontal: 16,
@@ -121,7 +122,6 @@ function ListItem({_id, name, createdAt, selected, onSelect}) {
 }
 
 export default function HomeScreen() {
-	const [rooms, setRooms] = useState([])
 	const [filteredRoomList, setFilteredRoomList] = useState(roomsData)
 	const [selected, setSelected] = useState(new Map())
 	const [loading, setLoading] = useState(false)
@@ -140,7 +140,6 @@ export default function HomeScreen() {
 	)
 
 	useEffect(() => {
-		console.log(query)
 		const lowerCaseQuery = debounceQuery.toLowerCase()
 		const newRooms = roomsData.filter((room) =>
 			room.name.toLowerCase().includes(lowerCaseQuery),
@@ -148,19 +147,6 @@ export default function HomeScreen() {
 
 		setFilteredRoomList(newRooms)
 	}, [debounceQuery])
-
-	const renderSeparator = () => {
-		return (
-			<View
-				style={{
-					height: 1,
-					width: '86%',
-					backgroundColor: '#000',
-					marginLeft: '14%',
-				}}
-			/>
-		)
-	}
 
 	const renderHeader = () => {
 		return <Text style={styles.header}>Meetings</Text>
@@ -185,16 +171,30 @@ export default function HomeScreen() {
 		)
 	}
 
+	const renderSeparator = () => {
+		return (
+			<View
+				style={{
+					height: 1,
+					width: '86%',
+					// backgroundColor: '#000',
+					marginLeft: '14%',
+				}}
+			/>
+		)
+	}
+
 	return (
 		<SafeArea style={styles.container}>
-			<TextInput
-				style={{
-					backgroundColor: 'red',
-					height: 50,
-				}}
-				value={query}
-				onChangeText={setQuery}
-			/>
+			<View style={{marginHorizontal: 16}}>
+				<InputTextField
+					placeholderText="Enter room name"
+					value={query}
+					onChangeText={setQuery}
+					isSearch
+					white
+				/>
+			</View>
 			<FlatList
 				style={styles.meetingContainer}
 				data={filteredRoomList}

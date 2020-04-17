@@ -1,15 +1,13 @@
-import React, {useState, useContext, useEffect, Fragment} from 'react'
+import React, {useState, useContext, useEffect} from 'react'
 import {createStackNavigator} from '@react-navigation/stack'
 
 import {CTX} from '../context'
 
 import SplashScreen from '../screens/SplashScreen'
-import SignInScreen from '../screens/SignInScreen'
-import SignUpScreen from '../screens/SignUpScreen'
-import ForgotScreen from '../screens/ForgotScreen'
 import BottomTabScreen from './BottomTabStack'
+import AuthStackScreen from './AuthStack'
 
-import {SPLASH, BOTTOMTAB, SIGNIN, SIGNUP, FORGOT} from '../constants'
+import {SPLASH, BOTTOMTAB, AUTH} from '../constants'
 
 const forFade = ({current, closing}) => ({
 	cardStyle: {
@@ -44,15 +42,9 @@ export default function AppStackScreen() {
 			})}
 			headerMode="none">
 			{token ? (
-				<Fragment>
-					<AppStack.Screen name={BOTTOMTAB} component={BottomTabScreen} />
-				</Fragment>
+				<AppStack.Screen name={BOTTOMTAB} component={BottomTabScreen} />
 			) : (
-				<Fragment>
-					<AppStack.Screen name={SIGNIN} component={SignInScreen} />
-					<AppStack.Screen name={SIGNUP} component={SignUpScreen} />
-					<AppStack.Screen name={FORGOT} component={ForgotScreen} />
-				</Fragment>
+				<AppStack.Screen name={AUTH} component={AuthStackScreen} />
 			)}
 		</AppStack.Navigator>
 	)

@@ -1,6 +1,7 @@
 const variable = {
 	SPLASH: 'Splash',
 	BOTTOMTAB: 'BottomTab',
+	AUTH: 'Auth',
 	SIGNIN: 'SignIn',
 	SIGNUP: 'SignUp',
 	FORGOT: 'Forgot',
