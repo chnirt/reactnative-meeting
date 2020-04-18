@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
 	},
 })
 
-export default function AddButton({color, size, onPress}) {
+export default function AddButton({color, size}) {
 	const buttonSize = useRef(new Animated.Value(1)).current
 	const mode = useRef(new Animated.Value(0)).current
 
@@ -33,7 +33,6 @@ export default function AddButton({color, size, onPress}) {
 
 			// Do something manually
 			// ...
-			onPress()
 			Animated.timing(buttonSize, {
 				toValue: 1,
 				useNativeDriver: true,

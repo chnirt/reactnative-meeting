@@ -32,3 +32,5 @@ https://oblador.github.io/react-native-vector-icons/
 - Get logo vector: https://worldvectorlogo.com/downloaded/facebook-2
 
 - Run my device: https://stackoverflow.com/questions/54211534/nothing-happens-after-react-native-run-ios-device-in-react-native
+
+- Orientation: https://medium.com/prototyped/react-native-video-handling-fullscreen-and-controls-on-android-dbb45a2e52ea
