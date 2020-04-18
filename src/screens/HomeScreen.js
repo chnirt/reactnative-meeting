@@ -8,6 +8,8 @@ import {
 	Image,
 	ActivityIndicator,
 } from 'react-native'
+import {useNavigation} from '@react-navigation/native'
+import Icon from 'react-native-vector-icons/dist/Feather'
 
 import SafeArea from '../components/SafeArea'
 import {PRIMARY, SECONDARY} from '../themes'
@@ -40,16 +42,16 @@ const styles = StyleSheet.create({
 })
 
 function ListItem({_id, name, avatar, createdAt, selected, onSelect}) {
-	// const navigation = useNavigation()
+	const navigation = useNavigation()
 
-	// function navigateChat() {
-	// 	navigation?.navigate('Chat', {_id, name})
-	// }
+	function navigateRoom() {
+		navigation?.navigate('Room', {_id, name})
+	}
 	return (
 		<TouchableOpacity
 			onPress={() => {
-				onSelect(_id)
-				// navigateChat()
+				// onSelect(_id)
+				navigateRoom()
 			}}
 			style={[styles.item, {backgroundColor: selected ? PRIMARY : '#fff'}]}>
 			<View
@@ -225,7 +227,7 @@ export default function HomeScreen() {
 					placeholderText="Enter room name"
 					value={query}
 					onChangeText={onSearch}
-					isSearch
+					prefix={<Icon name="search" size={20} />}
 					white
 				/>
 			</View>

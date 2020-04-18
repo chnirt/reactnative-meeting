@@ -1,5 +1,6 @@
 const variable = {
 	SPLASH: 'Splash',
+	MAIN: 'Main',
 	DRAWER: 'Drawer',
 	AUTH: 'Auth',
 	SIGNIN: 'SignIn',
@@ -7,9 +8,9 @@ const variable = {
 	FORGOT: 'Forgot',
 	DASHBOARD: 'Dashboard',
 	BOTTOMTAB: 'BottomTab',
+	ROOM: 'Room',
 	MODAL: 'Modal',
 	HOME: 'Home',
-	MESSAGE_STACK: 'MessageStack',
 	MESSAGE: 'Message',
 	CHAT: 'Chat',
 	ADD: 'Add',

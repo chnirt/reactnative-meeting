@@ -139,12 +139,14 @@ export default function SignInScreen() {
 						placeholderText="Enter your username"
 						value={username}
 						onChangeText={setUsername}
+						prefix={<Icon name="user" size={20} />}
 					/>
 					<InputTextField
 						title="Password"
 						placeholderText="Enter your password"
 						value={password}
 						onChangeText={setPassword}
+						prefix={<Icon name="lock" size={20} />}
 						isSecure
 					/>
 					<View style={{marginTop: 10}}>

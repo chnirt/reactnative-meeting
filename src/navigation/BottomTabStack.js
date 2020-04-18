@@ -3,21 +3,14 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 import Icon from 'react-native-vector-icons/dist/Feather'
 
 import HomeScreen from '../screens/HomeScreen'
-import MessageStackScreen from '../navigation/MessageStack'
+import MessageScreen from '../screens/MessageScreen'
 import NotificationScreen from '../screens/NotificationScreen'
 import ProfileScreen from '../screens/ProfileScreen'
 
 import AddButton from '../components/Button/AddButton'
-import {
-	HOME,
-	MESSAGE_STACK,
-	ADD,
-	NOTIFICATION,
-	PROFILE,
-	MODAL,
-} from '../constants'
+import {HOME, MESSAGE, ADD, NOTIFICATION, PROFILE, MODAL} from '../constants'
 import {PRIMARY} from '../themes'
-import {Platform} from 'react-native'
+// import {Platform} from 'react-native'
 import {useNavigation} from '@react-navigation/native'
 // import CustomBottomBar from '../components/CustomBottomBar'
 
@@ -67,8 +60,8 @@ export default function BottomTabScreen() {
 				}}
 			/>
 			<Tab.Screen
-				name={MESSAGE_STACK}
-				component={MessageStackScreen}
+				name={MESSAGE}
+				component={MessageScreen}
 				options={{
 					tabBarIcon: ({color, size}) => (
 						<Icon name="message-circle" color={color} size={size} />
@@ -80,13 +73,7 @@ export default function BottomTabScreen() {
 				children={() => null}
 				options={{
 					tabBarIcon: ({color, size}) => {
-						return (
-							<AddButton
-								color={color}
-								size={size}
-								onPress={() => navigation?.navigate(MODAL)}
-							/>
-						)
+						return <AddButton color={color} size={size} />
 					},
 				}}
 				listeners={{

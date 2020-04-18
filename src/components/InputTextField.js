@@ -31,19 +31,19 @@ const styles = StyleSheet.create({
 	},
 	input: {
 		height: 50,
-		paddingHorizontal: 40,
+		paddingHorizontal: 48,
 		color: '#514e5a',
 		fontWeight: '600',
 	},
 	search: {
 		backgroundColor: '#fff',
 	},
-	eyeIcon: {
+	suffixIcon: {
 		position: 'absolute',
 		top: 15,
 		right: 16,
 	},
-	glassIcon: {
+	prefixIcon: {
 		position: 'absolute',
 		top: 15,
 		left: 16,
@@ -57,8 +57,8 @@ export default function InputTextField({
 	isSecure,
 	value,
 	onChangeText,
-	isSearch,
 	white,
+	prefix,
 }) {
 	const [hidden, setHidden] = useState(true)
 	return (
@@ -69,18 +69,11 @@ export default function InputTextField({
 					title ? styles.inputContainerWithLabel : styles.inputContainer,
 					white && {backgroundColor: '#fff'},
 				]}>
-				{isSearch && (
-					<Icon
-						style={styles.glassIcon}
-						name="search"
-						size={20}
-						onPress={() => setHidden(!hidden)}
-					/>
-				)}
+				<View style={styles.prefixIcon}>{prefix}</View>
 				<TextInput
 					placeholder={placeholderText}
 					secureTextEntry={isSecure && hidden}
-					style={styles.input}
+					style={[styles.input, !prefix && {paddingHorizontal: 16}]}
 					value={value}
 					onChangeText={onChangeText}
 					width={SCREEN_WIDTH - 100}
@@ -89,7 +82,7 @@ export default function InputTextField({
 				/>
 				{isSecure && (
 					<Icon
-						style={styles.eyeIcon}
+						style={styles.suffixIcon}
 						name={hidden ? 'eye' : 'eye-off'}
 						size={20}
 						onPress={() => setHidden(!hidden)}

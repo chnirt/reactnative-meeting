@@ -83,6 +83,7 @@ export default function Forgot() {
 						placeholderText="Enter your email"
 						value={email}
 						onChangeText={setEmail}
+						prefix={<Icon name="mail" size={20} />}
 					/>
 					<View
 						style={{

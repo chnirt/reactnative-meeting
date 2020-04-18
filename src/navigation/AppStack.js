@@ -4,10 +4,10 @@ import {createStackNavigator} from '@react-navigation/stack'
 import {CTX} from '../context'
 
 import SplashScreen from '../screens/SplashScreen'
+import MainStackScreen from './MainStack'
 import AuthStackScreen from './AuthStack'
-import DrawerStackScreen from './DrawerStack'
 
-import {SPLASH, DRAWER, AUTH} from '../constants'
+import {SPLASH, MAIN, AUTH} from '../constants'
 
 const forFade = ({current, closing}) => ({
 	cardStyle: {
@@ -30,10 +30,6 @@ export default function AppStackScreen() {
 		}
 	})
 
-	if (loading) {
-		return <SplashScreen />
-	}
-
 	return (
 		<AppStack.Navigator
 			initialRouteName={SPLASH}
@@ -41,8 +37,10 @@ export default function AppStackScreen() {
 				cardStyleInterpolator: forFade,
 			})}
 			headerMode="none">
-			{token ? (
-				<AppStack.Screen name={DRAWER} component={DrawerStackScreen} />
+			{loading ? (
+				<AppStack.Screen name={SPLASH} component={SplashScreen} />
+			) : token ? (
+				<AppStack.Screen name={MAIN} component={MainStackScreen} />
 			) : (
 				<AppStack.Screen name={AUTH} component={AuthStackScreen} />
 			)}

@@ -7,10 +7,10 @@ import {
 	TouchableOpacity,
 } from 'react-native'
 import {useNavigation} from '@react-navigation/native'
-import {useMutation} from '@apollo/react-hooks'
+// import {useMutation} from '@apollo/react-hooks'
 import Icon from 'react-native-vector-icons/dist/Feather'
 
-import {SIGN_UP} from '../graphql/mutations'
+// import {SIGN_UP} from '../graphql/mutations'
 import SafeArea from '../components/SafeArea'
 import {PRIMARY, SECONDARY} from '../themes'
 import InputTextField from '../components/InputTextField'
@@ -102,18 +102,21 @@ export default function SignUpScreen() {
 						placeholderText="Enter your email"
 						value={email}
 						onChangeText={setEmail}
+						prefix={<Icon name="mail" size={20} />}
 					/>
 					<InputTextField
 						title="Username"
 						placeholderText="Enter your username"
 						value={username}
 						onChangeText={setUsername}
+						prefix={<Icon name="user" size={20} />}
 					/>
 					<InputTextField
 						title="Password"
 						placeholderText="Enter your password"
 						value={password}
 						onChangeText={setPassword}
+						prefix={<Icon name="lock" size={20} />}
 						isSecure
 					/>
 					<InputTextField
@@ -121,12 +124,14 @@ export default function SignUpScreen() {
 						placeholderText="Enter your fullName"
 						value={fullName}
 						onChangeText={setFullName}
+						prefix={<Icon name="file-text" size={20} />}
 					/>
 					<InputTextField
 						title="phoneNumber"
 						placeholderText="Enter your phoneNumber"
 						value={phoneNumber}
 						onChangeText={setPhoneNumber}
+						prefix={<Icon name="phone" size={20} />}
 					/>
 					<View
 						style={{
