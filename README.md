@@ -1,12 +1,34 @@
-fix vectors: https://github.com/oblador/react-native-vector-icons/issues/135
+### Navigator structure
+
+    AppStack                            # Stack
+    ├── SplashScreen
+    ├── MainStack                       # Stack
+    │   ├── DashboardStack
+    │   │   ├── BottomTabStack          # BottomTab
+    │   │   │    ├── HomeScreen
+    │   │   │    ├── MessageScreen
+    │   │   │    ├── AddScreen
+    │   │   │    ├── NotificationScreen
+    │   │   │    └── ProfileScreen
+    │   │   └── ModalScreen
+    │   ├── RoomScreen
+    │   └── ChatScreen
+    └── AuthStack                       # Stack
+        ├── LoginScreen
+        ├── RegisterScreen
+        └── ForgotScreen
+
+## see also:
+
+- Fix vector: https://github.com/oblador/react-native-vector-icons/issues/135
 
 https://oblador.github.io/react-native-vector-icons/
 
-Get color from image:
-https://html-color-codes.info/colors-from-image/
+- Get colors from image:
+  https://html-color-codes.info/colors-from-image/
 
-Svg -> Svgr : https://react-svgr.com/playground/?native=true
+- Convert svg -> svgr : https://react-svgr.com/playground/?native=true
 
-logo: https://worldvectorlogo.com/downloaded/facebook-2
+- Get logo vector: https://worldvectorlogo.com/downloaded/facebook-2
 
-Run my divice: https://stackoverflow.com/questions/54211534/nothing-happens-after-react-native-run-ios-device-in-react-native
+- Run my device: https://stackoverflow.com/questions/54211534/nothing-happens-after-react-native-run-ios-device-in-react-native

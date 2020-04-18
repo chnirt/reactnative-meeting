@@ -7,18 +7,14 @@ import DashboardStackScreen from './DashboardStack'
 import RoomScreen from '../screens/RoomScreen'
 import ChatScreen from '../screens/ChatScreen'
 
-const DashboardStack = createStackNavigator()
+const MainStack = createStackNavigator()
 
 export default function MainStackScreen() {
 	return (
-		<DashboardStack.Navigator initialRouteName={DASHBOARD} headerMode="none">
-			<DashboardStack.Screen
-				name={DASHBOARD}
-				component={DashboardStackScreen}
-			/>
-			{/* <DashboardStack.Screen name={BOTTOMTAB} component={BottomTabScreen} /> */}
-			<DashboardStack.Screen name={ROOM} component={RoomScreen} />
-			<DashboardStack.Screen name={CHAT} component={ChatScreen} />
-		</DashboardStack.Navigator>
+		<MainStack.Navigator initialRouteName={DASHBOARD} headerMode="none">
+			<MainStack.Screen name={DASHBOARD} component={DashboardStackScreen} />
+			<MainStack.Screen name={ROOM} component={RoomScreen} />
+			<MainStack.Screen name={CHAT} component={ChatScreen} />
+		</MainStack.Navigator>
 	)
 }
