@@ -68,7 +68,7 @@ export default function BottomTabScreen() {
 					),
 				}}
 			/>
-			<Tab.Screen
+			{/* <Tab.Screen
 				name={ADD}
 				children={() => null}
 				options={{
@@ -87,7 +87,7 @@ export default function BottomTabScreen() {
 						// console.log('tabLongPress')
 					},
 				}}
-			/>
+			/> */}
 			<Tab.Screen
 				name={NOTIFICATION}
 				component={NotificationScreen}
