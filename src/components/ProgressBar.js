@@ -1,6 +1,7 @@
 import React from 'react'
 import Slider from '@react-native-community/slider'
-import {View, Text, StyleSheet} from 'react-native'
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native'
+import Icon from 'react-native-vector-icons/dist/Feather'
 
 const styles = StyleSheet.create({
 	wrapper: {
@@ -10,20 +11,21 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		justifyContent: 'space-between',
 		alignItems: 'center',
-		paddingHorizontal: 5,
+		paddingHorizontal: 16,
 	},
 	timeLeft: {
 		flex: 1,
 		fontSize: 16,
 		color: '#FFFFFF',
-		paddingLeft: 10,
 	},
 	timeRight: {
 		flex: 1,
 		fontSize: 16,
 		color: '#FFFFFF',
 		textAlign: 'right',
-		paddingRight: 10,
+	},
+	fullscreenBottom: {
+		paddingLeft: 10,
 	},
 })
 
@@ -33,30 +35,40 @@ export default function ProgressBar({
 	onSlideCapture,
 	onSlideStart,
 	onSlideComplete,
+	fullscreen,
+	onFullscreen,
 }) {
 	const position = getMinutesFromSeconds(currentTime)
 	const fullDuration = getMinutesFromSeconds(duration)
 
 	return (
 		<View style={styles.wrapper}>
-			<Slider
-				// style={{width: 200, height: 40}}
-				thumbTouchSize={{width: 20, height: 20}}
-				value={currentTime}
-				minimumValue={0}
-				maximumValue={duration}
-				step={1}
-				onValueChange={handleOnSlide}
-				onSlidingStart={onSlideStart}
-				onSlidingComplete={onSlideComplete}
-				minimumTrackTintColor={'#F44336'}
-				maximumTrackTintColor={'#fff'}
-				thumbTintColor={'#F44ddf'}
-				// trackImage={<Text>Hello</Text>}
-			/>
 			<View style={styles.timeWrapper}>
-				<Text style={(styles.timeLeft, {color: 'red'})}>{position}</Text>
-				<Text style={(styles.timeRight, {color: 'blue'})}>{fullDuration}</Text>
+				<Text style={styles.timeLeft}>{position}</Text>
+				<Slider
+					style={{width: '60%'}}
+					value={currentTime}
+					minimumValue={0}
+					maximumValue={duration}
+					step={1}
+					onValueChange={handleOnSlide}
+					onSlidingStart={onSlideStart}
+					onSlidingComplete={onSlideComplete}
+					minimumTrackTintColor={'#F44336'}
+					maximumTrackTintColor={'#fff'}
+					thumbTintColor={'#F44336'}
+				/>
+				<Text style={styles.timeRight}>{fullDuration}</Text>
+				<TouchableOpacity
+					onPress={onFullscreen}
+					// hitSlop={{top: 10, bottom: 10, left: 10, right: 10}}
+					style={styles.fullscreenBottom}>
+					{fullscreen ? (
+						<Icon name="minimize" size={20} color="#fff" />
+					) : (
+						<Icon name="maximize" size={20} color="#fff" />
+					)}
+				</TouchableOpacity>
 			</View>
 		</View>
 	)

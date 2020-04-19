@@ -22,8 +22,6 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		backgroundColor: '#ebebeb',
-		// justifyContent: 'center',
-		// alignItems: 'center',
 	},
 	video: {
 		width: Dimensions.get('window').width,
@@ -35,13 +33,13 @@ const styles = StyleSheet.create({
 		width: Dimensions.get('window').height,
 		backgroundColor: 'black',
 	},
-	fullscreenButton: {
+	backButton: {
 		flex: 1,
 		flexDirection: 'row',
-		alignSelf: 'flex-end',
+		alignSelf: 'flex-start',
 		alignItems: 'center',
 		paddingTop: 32,
-		paddingRight: 32,
+		paddingLeft: 32,
 	},
 	controlOverlay: {
 		position: 'absolute',
@@ -68,13 +66,13 @@ export default function RoomScreen({route}) {
 		currentTime: 0,
 		duration: 0,
 		showControls: true,
+		lock: false,
 	})
 	const navigation = useNavigation()
 
 	useEffect(() => {
 		// This would be inside componentDidMount()
 		Orientation.addOrientationListener(handleOrientation)
-
 		return () => {
 			// This would be inside componentWillUnmount()
 			Orientation.removeOrientationListener(handleOrientation)
@@ -165,16 +163,15 @@ export default function RoomScreen({route}) {
 					/>
 					{state.showControls && (
 						<View style={styles.controlOverlay}>
-							<TouchableOpacity
-								onPress={handleFullscreen}
+							{/* <TouchableOpacity
+								onPress={() => {
+									navigation?.goBack()
+									Orientation.unlockAllOrientations()
+								}}
 								hitSlop={{top: 10, bottom: 10, left: 10, right: 10}}
-								style={styles.fullscreenButton}>
-								{state.fullscreen ? (
-									<Icon name="minimize" size={20} color="#fff" />
-								) : (
-									<Icon name="maximize" size={20} color="#fff" />
-								)}
-							</TouchableOpacity>
+								style={styles.backButton}>
+								<Icon name="chevron-left" size={20} color="#fff" />
+							</TouchableOpacity> */}
 							<PlayerControls
 								onPlay={handlePlayPause}
 								onPause={handlePlayPause}
@@ -190,6 +187,8 @@ export default function RoomScreen({route}) {
 								onSlideStart={handlePlayPause}
 								onSlideComplete={handlePlayPause}
 								onSlideCapture={onSeek}
+								fullscreen={state.fullscreen}
+								onFullscreen={handleFullscreen}
 							/>
 						</View>
 					)}

@@ -149,10 +149,6 @@ export default function HomeScreen() {
 	useEffect(() => {
 		setLoading(true)
 		fetchRooms()
-
-		return () => {
-			fetchRooms()
-		}
 	}, [page])
 
 	const fetchRooms = () => {
