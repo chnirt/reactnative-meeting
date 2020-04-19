@@ -50,8 +50,9 @@ export default function ProgressBar({
 				onSlidingStart={onSlideStart}
 				onSlidingComplete={onSlideComplete}
 				minimumTrackTintColor={'#F44336'}
-				maximumTrackTintColor={'#FFFFFF'}
-				thumbTintColor={'#F44336'}
+				maximumTrackTintColor={'#fff'}
+				thumbTintColor={'#F44ddf'}
+				// trackImage={<Text>Hello</Text>}
 			/>
 			<View style={styles.timeWrapper}>
 				<Text style={(styles.timeLeft, {color: 'red'})}>{position}</Text>

@@ -83,8 +83,8 @@ export default function RoomScreen({route}) {
 
 	function handleOrientation(orientation) {
 		orientation === 'LANDSCAPE-LEFT' || orientation === 'LANDSCAPE-RIGHT'
-			? setState({...state, fullscreen: true}, StatusBar.setHidden(true))
-			: setState({...state, fullscreen: false}, StatusBar.setHidden(false))
+			? setState((s) => ({...s, fullscreen: true}), StatusBar.setHidden(true))
+			: setState((s) => ({...s, fullscreen: false}), StatusBar.setHidden(false))
 	}
 
 	function handleFullscreen() {
@@ -96,27 +96,27 @@ export default function RoomScreen({route}) {
 	function handlePlayPause() {
 		// If playing, pause and show controls immediately.
 		if (state.play) {
-			setState({...state, play: false, showControls: true})
+			setState((s) => ({...s, play: false, showControls: true}))
 			return
 		}
 
 		setState({...state, play: true})
-		setTimeout(() => setState({...state, showControls: false}), 2000)
+		setTimeout(() => setState((s) => ({...s, showControls: false})), 2000)
 	}
 
 	function skipBackward() {
 		videoRef.current.seek(state.currentTime - 15)
-		setState({...state, currentTime: state.currentTime - 15})
+		setState((s) => ({...s, currentTime: state.currentTime - 15}))
 	}
 
 	function skipForward() {
 		videoRef.current.seek(state.currentTime + 15)
-		setState({...state, currentTime: state.currentTime + 15})
+		setState((s) => ({...s, currentTime: state.currentTime + 15}))
 	}
 
 	function onSeek(data) {
 		videoRef.current.seek(data.seekTime)
-		setState({...state, currentTime: data.seekTime})
+		setState((s) => ({...s, currentTime: data.seekTime}))
 	}
 
 	function onLoadEnd(data) {
@@ -135,14 +135,14 @@ export default function RoomScreen({route}) {
 	}
 
 	function onEnd() {
-		setState({...state, play: false})
+		setState((s) => ({...s, play: false}))
 		videoRef.current.seek(0)
 	}
 
 	function showControls() {
 		state.showControls
-			? setState({...state, showControls: false})
-			: setState({...state, showControls: true})
+			? setState((s) => ({...s, showControls: false}))
+			: setState((s) => ({...s, showControls: true}))
 	}
 
 	return (
@@ -150,6 +150,7 @@ export default function RoomScreen({route}) {
 			<TouchableWithoutFeedback onPress={showControls}>
 				<View>
 					<Video
+						ref={videoRef}
 						source={{
 							uri:
 								'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
