@@ -14,6 +14,7 @@ import Icon from 'react-native-vector-icons/dist/Feather'
 import SafeArea from '../components/SafeArea'
 import {PRIMARY, SECONDARY} from '../themes'
 import InputTextField from '../components/InputTextField'
+import useDebounce from '../hooks/useDebounce'
 
 const styles = StyleSheet.create({
 	container: {
@@ -131,6 +132,7 @@ export default function HomeScreen() {
 	const [refresh, setRefresh] = useState(false)
 	const [loading, setLoading] = useState(false)
 	const [page, setPage] = useState(1)
+	const debouncedPageTerm = useDebounce(page, 500)
 
 	const [query, setQuery] = useState('')
 
@@ -147,6 +149,10 @@ export default function HomeScreen() {
 	useEffect(() => {
 		setLoading(true)
 		fetchRooms()
+
+		return () => {
+			fetchRooms()
+		}
 	}, [page])
 
 	const fetchRooms = () => {
@@ -170,7 +176,7 @@ export default function HomeScreen() {
 	}
 
 	function refreshRooms() {
-		if (page > 1) {
+		if (!refresh && page > 1) {
 			setRefresh(true)
 			setPage(1)
 		}

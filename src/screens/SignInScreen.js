@@ -9,7 +9,6 @@ import {
 	Text,
 } from 'react-native'
 // import {useMutation} from '@apollo/react-hooks'
-import Icon from 'react-native-vector-icons/dist/Feather'
 
 import {CTX} from '../context'
 // import {SIGN_IN} from '../graphql/mutations'
@@ -19,6 +18,12 @@ import InputTextField from '../components/InputTextField'
 import Google from '../components/Icon/Google'
 import Facebook from '../components/Icon/Facebook'
 import {SIGNUP, FORGOT} from '../constants'
+import {
+	ScreenBack,
+	FormUsername,
+	FormPassword,
+	FormSignIn,
+} from '../assets/icon'
 
 const styles = StyleSheet.create({
 	container: {
@@ -111,7 +116,7 @@ export default function SignInScreen() {
 			<View style={styles.circle} />
 			<ScrollView>
 				<TouchableOpacity style={styles.back} onPress={navigateSignUp}>
-					<Icon name="chevron-left" size={30} color="#000" />
+					<ScreenBack size={30} />
 					<Text>SIGN UP</Text>
 				</TouchableOpacity>
 				<View style={{marginTop: 64, alignItems: 'center'}}>
@@ -139,14 +144,14 @@ export default function SignInScreen() {
 						placeholderText="Enter your username"
 						value={username}
 						onChangeText={setUsername}
-						prefix={<Icon name="user" size={20} />}
+						prefix={<FormUsername />}
 					/>
 					<InputTextField
 						title="Password"
 						placeholderText="Enter your password"
 						value={password}
 						onChangeText={setPassword}
-						prefix={<Icon name="lock" size={20} />}
+						prefix={<FormPassword />}
 						isSecure
 					/>
 					<View style={{marginTop: 10}}>
@@ -184,7 +189,7 @@ export default function SignInScreen() {
 						<TouchableOpacity
 							style={[styles.button, styles.continue]}
 							onPress={() => onSignIn({username, password})}>
-							<Icon name="chevron-right" size={30} color="#fff" />
+							<FormSignIn size={30} color="#fff" />
 						</TouchableOpacity>
 					</View>
 				</View>

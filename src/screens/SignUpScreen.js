@@ -8,13 +8,21 @@ import {
 } from 'react-native'
 import {useNavigation} from '@react-navigation/native'
 // import {useMutation} from '@apollo/react-hooks'
-import Icon from 'react-native-vector-icons/dist/Feather'
 
 // import {SIGN_UP} from '../graphql/mutations'
 import SafeArea from '../components/SafeArea'
 import {PRIMARY, SECONDARY} from '../themes'
 import InputTextField from '../components/InputTextField'
 import {SIGNIN} from '../constants'
+import {
+	ScreenBack,
+	FormSignUp,
+	FormEmail,
+	FormUsername,
+	FormPassword,
+	FormFullName,
+	FormPhoneNumber,
+} from '../assets/icon'
 
 const styles = StyleSheet.create({
 	container: {
@@ -92,7 +100,7 @@ export default function SignUpScreen() {
 			<View style={styles.circle} />
 			<ScrollView>
 				<TouchableOpacity style={styles.back} onPress={navigateSignIn}>
-					<Icon name="chevron-left" size={30} color="#000" />
+					<ScreenBack size={30} />
 					<Text>SIGN IN</Text>
 				</TouchableOpacity>
 
@@ -102,21 +110,21 @@ export default function SignUpScreen() {
 						placeholderText="Enter your email"
 						value={email}
 						onChangeText={setEmail}
-						prefix={<Icon name="mail" size={20} />}
+						prefix={<FormEmail />}
 					/>
 					<InputTextField
 						title="Username"
 						placeholderText="Enter your username"
 						value={username}
 						onChangeText={setUsername}
-						prefix={<Icon name="user" size={20} />}
+						prefix={<FormUsername />}
 					/>
 					<InputTextField
 						title="Password"
 						placeholderText="Enter your password"
 						value={password}
 						onChangeText={setPassword}
-						prefix={<Icon name="lock" size={20} />}
+						prefix={<FormPassword />}
 						isSecure
 					/>
 					<InputTextField
@@ -124,14 +132,14 @@ export default function SignUpScreen() {
 						placeholderText="Enter your fullName"
 						value={fullName}
 						onChangeText={setFullName}
-						prefix={<Icon name="file-text" size={20} />}
+						prefix={<FormFullName />}
 					/>
 					<InputTextField
 						title="phoneNumber"
 						placeholderText="Enter your phoneNumber"
 						value={phoneNumber}
 						onChangeText={setPhoneNumber}
-						prefix={<Icon name="phone" size={20} />}
+						prefix={<FormPhoneNumber />}
 					/>
 					<View
 						style={{
@@ -143,7 +151,7 @@ export default function SignUpScreen() {
 							onPress={() =>
 								onSignUp({email, username, password, fullName, phoneNumber})
 							}>
-							<Icon name="user-plus" size={30} color="#fff" />
+							<FormSignUp size={30} color="#fff" />
 						</TouchableOpacity>
 					</View>
 				</View>

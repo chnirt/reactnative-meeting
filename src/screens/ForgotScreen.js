@@ -13,6 +13,7 @@ import SafeArea from '../components/SafeArea'
 import {PRIMARY, SECONDARY} from '../themes'
 import {SIGNIN} from '../constants'
 import InputTextField from '../components/InputTextField'
+import {ScreenBack, FormEmail, FormForgot} from '../assets/icon'
 
 const styles = StyleSheet.create({
 	container: {
@@ -73,7 +74,7 @@ export default function Forgot() {
 			<View style={styles.circle} />
 			<ScrollView>
 				<TouchableOpacity style={styles.back} onPress={navigateSignIn}>
-					<Icon name="chevron-left" size={30} color="#000" />
+					<ScreenBack size={30} color="#000" />
 					<Text>SIGN IN</Text>
 				</TouchableOpacity>
 
@@ -83,7 +84,7 @@ export default function Forgot() {
 						placeholderText="Enter your email"
 						value={email}
 						onChangeText={setEmail}
-						prefix={<Icon name="mail" size={20} />}
+						prefix={<FormEmail />}
 					/>
 					<View
 						style={{
@@ -93,7 +94,7 @@ export default function Forgot() {
 						<TouchableOpacity
 							style={[styles.button, styles.continue]}
 							onPress={() => onSend({email})}>
-							<Icon name="send" size={30} color="#fff" />
+							<FormForgot size={30} color="#fff" />
 						</TouchableOpacity>
 					</View>
 				</View>
