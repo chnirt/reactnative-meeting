@@ -12,16 +12,14 @@ import {useNavigation} from '@react-navigation/native'
 import Icon from 'react-native-vector-icons/dist/Feather'
 
 import SafeArea from '../components/SafeArea'
-import {PRIMARY, SECONDARY} from '../themes'
+import {PRIMARY} from '../themes'
 import InputTextField from '../components/InputTextField'
-import useDebounce from '../hooks/useDebounce'
 
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		// paddingTop: 0,
 		paddingBottom: 0,
-		backgroundColor: SECONDARY,
 	},
 	search: {
 		marginBottom: 16,
@@ -132,7 +130,6 @@ export default function HomeScreen() {
 	const [refresh, setRefresh] = useState(false)
 	const [loading, setLoading] = useState(false)
 	const [page, setPage] = useState(1)
-	const debouncedPageTerm = useDebounce(page, 500)
 
 	const [query, setQuery] = useState('')
 

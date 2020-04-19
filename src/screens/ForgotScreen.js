@@ -21,13 +21,13 @@ const styles = StyleSheet.create({
 		backgroundColor: SECONDARY,
 	},
 	circle: {
-		width: 510,
-		height: 510,
-		borderRadius: 510 / 2,
+		width: 500,
+		height: 500,
+		borderRadius: 500 / 2,
 		backgroundColor: '#fff',
 		position: 'absolute',
 		left: -50,
-		top: -200,
+		top: -160,
 	},
 	back: {
 		position: 'absolute',
@@ -40,6 +40,12 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		alignItems: 'center',
 		justifyContent: 'center',
+	},
+	greeting: {
+		color: PRIMARY,
+		fontSize: 24,
+		fontWeight: '800',
+		textAlign: 'center',
 	},
 	button: {
 		width: 70,
@@ -77,8 +83,16 @@ export default function Forgot() {
 					<ScreenBack size={30} color="#000" />
 					<Text>SIGN IN</Text>
 				</TouchableOpacity>
-
-				<View style={{marginTop: 64, marginHorizontal: 32}}>
+				<View
+					style={{
+						marginTop: 64,
+						marginHorizontal: 32,
+						flexDirection: 'row',
+						justifyContent: 'center',
+					}}>
+					<Text style={styles.greeting}>FORGOT PASSWORD?</Text>
+				</View>
+				<View style={{marginHorizontal: 32}}>
 					<InputTextField
 						title="Email"
 						placeholderText="Enter your email"

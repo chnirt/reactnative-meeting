@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
 		backgroundColor: '#fff',
 		position: 'absolute',
 		left: -140,
-		top: -20,
+		top: 0,
 	},
 	back: {
 		position: 'absolute',
@@ -51,11 +51,11 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'center',
 	},
-	header: {
+	greeting: {
+		color: PRIMARY,
+		fontSize: 24,
 		fontWeight: '800',
-		fontSize: 16,
-		color: '#514e5a',
-		marginTop: 16,
+		textAlign: 'center',
 	},
 	button: {
 		width: 70,
@@ -74,10 +74,10 @@ const styles = StyleSheet.create({
 		backgroundColor: '#fff',
 	},
 	google: {
-		top: 70,
+		top: 60,
 	},
 	facebook: {
-		top: 60,
+		top: 50,
 	},
 })
 
@@ -122,8 +122,8 @@ export default function SignInScreen() {
 				<View style={{marginTop: 64, alignItems: 'center'}}>
 					<View
 						style={{
-							width: 100,
-							height: 100,
+							width: 80,
+							height: 80,
 							backgroundColor: PRIMARY,
 							justifyContent: 'center',
 							borderRadius: 15,
@@ -131,12 +131,15 @@ export default function SignInScreen() {
 						<Image
 							source={require('../assets/logo.png')}
 							style={{
-								width: 60,
-								height: 50,
+								width: 48,
+								height: 40,
 								alignSelf: 'center',
 							}}
 						/>
 					</View>
+				</View>
+				<View style={{marginTop: 16, marginHorizontal: 32}}>
+					<Text style={styles.greeting}>WELCOME BACK,</Text>
 				</View>
 				<View style={{marginHorizontal: 32}}>
 					<InputTextField

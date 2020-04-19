@@ -30,13 +30,13 @@ const styles = StyleSheet.create({
 		backgroundColor: SECONDARY,
 	},
 	circle: {
-		width: 710,
-		height: 710,
-		borderRadius: 710 / 2,
+		width: 740,
+		height: 740,
+		borderRadius: 740 / 2,
 		backgroundColor: '#fff',
 		position: 'absolute',
 		left: -140,
-		top: -20,
+		top: -30,
 	},
 	back: {
 		position: 'absolute',
@@ -49,6 +49,12 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		alignItems: 'center',
 		justifyContent: 'center',
+	},
+	greeting: {
+		color: PRIMARY,
+		fontSize: 24,
+		fontWeight: '800',
+		textAlign: 'center',
 	},
 	button: {
 		width: 70,
@@ -103,8 +109,17 @@ export default function SignUpScreen() {
 					<ScreenBack size={30} />
 					<Text>SIGN IN</Text>
 				</TouchableOpacity>
-
-				<View style={{marginTop: 64, marginHorizontal: 32}}>
+				<View
+					style={{
+						marginTop: 56,
+						marginHorizontal: 32,
+						flexDirection: 'row',
+						justifyContent: 'center',
+					}}>
+					<Text style={{color: PRIMARY, fontSize: 24}}>HELLO </Text>
+					<Text style={styles.greeting}>BEAUTY</Text>
+				</View>
+				<View style={{marginHorizontal: 32}}>
 					<InputTextField
 						title="Email"
 						placeholderText="Enter your email"
